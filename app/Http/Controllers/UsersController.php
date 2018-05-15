@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class UsersController extends Controller
 {
@@ -14,12 +15,16 @@ class UsersController extends Controller
     public function index()
     {
       $page_title = 'Senarai Users';
-
-      $rekod_users = [
-        ['id' => 1, 'nama' => 'Ali', 'emel' => 'Ali@gmail.com', 'telefon' => '0123456789'],
-        ['id' => 2, 'nama' => 'Abu', 'emel' => 'Abu@gmail.com', 'telefon' => '0123456779'],
-        ['id' => 3, 'nama' => 'Ahmad', 'emel' => 'Ahmad@gmail.com', 'telefon' => '0123456989']
-      ];
+      # Query ke table users (Dapatkan SEMUA rekod)
+      // $rekod_users = DB::table('users')->get();
+      # Query ke table users (Dapatkan rekod pagination)
+      # $rekod_users = DB::table('users')->paginate(2);
+      # Query ke table dan pilih column2 tertentu
+      $rekod_users = DB::table('users')
+      ->select('id', 'nama', 'email', 'no_telefon')
+      ->orderBy('id', 'desc')
+      ->whereIn('role', ['admin', 'student'])
+      ->paginate(2);
 
       return view('users/template_index', compact('page_title', 'rekod_users'));
     }
@@ -48,7 +53,7 @@ class UsersController extends Controller
       //$this->validate($request, []);
       # Validation Laravel 5.5 ke atas
       $request->validate([
-        'nama' => 'required|min:3|alpha',
+        'nama' => 'required|min:3',
         'email' => 'required|email',
         'no_kp' => 'required|regex:/^\d{6}-\d{2}-\d{4}$/'
       ]);
@@ -58,9 +63,11 @@ class UsersController extends Controller
       # Dapatkan nama dan emeel
       // $data = $request->only('nama', 'email');
       # Dapatkan nama dan emeel
-      $data = $request->except('nama');
-      # Bagi respon
-      return $data;
+      $data = $request->except('_token', 'uid');
+      # Simpan data ke dalam database
+      DB::table('users')->insert($data);
+      //
+      return redirect('/users')->with('mesej-sukses', 'Rekod berjaya di simpan!');
     }
 
     /**

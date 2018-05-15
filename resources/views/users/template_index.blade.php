@@ -9,6 +9,8 @@
 
 <div class="card-body">
 
+@include('layouts/alerts')
+
 <p>
   <a class="btn btn-primary" href="/users/add">Tambah User</a>
 </p>
@@ -26,11 +28,11 @@
 
     @foreach ( $rekod_users as $orang )
     <tr>
-      <td>{{ $orang['nama'] }}</td>
-      <td>{{ $orang['emel'] }}</td>
-      <td>{{ $orang['telefon'] }}</td>
+      <td>{{ $orang->nama }}</td>
+      <td>{{ $orang->email }}</td>
+      <td>{{ $orang->no_telefon }}</td>
       <td>
-        <a class="btn btn-sm btn-info" href="/users/{{ $orang['id'] }}/edit">Edit</a>
+        <a class="btn btn-sm btn-info" href="/users/{{ $orang->id }}/edit">Edit</a>
         <button class="btn btn-sm btn-danger">Delete</button>
       </td>
     </tr>
@@ -39,6 +41,8 @@
   </tbody>
 
 </table>
+
+{!! $rekod_users->links() !!}
 
 </div>
 </div>
