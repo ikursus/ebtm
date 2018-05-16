@@ -13,7 +13,8 @@
   <form method="POST" action="{{ route('modul.update', ['id' => $modul->id]) }}">
       @csrf
 
-      <input type="hidden" name="_method" value="PATCH">
+      <!--input type="hidden" name="_method" value="PATCH"-->
+      @method('patch')
 
 
       <div class="form-group row">
