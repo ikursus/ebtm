@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
           'no_kp' => '801205-08-6666',
           'no_telefon' => '0123456789',
           'alamat' => 'No. 123 Taman ABC 70000 Kuala Lumpur',
-          'role' => 'admin'
+          'role' => 'ADMIN'
         ]);
 
         # Data Demo User 2
@@ -32,7 +32,7 @@ class UsersTableSeeder extends Seeder
           'no_kp' => '801205-08-5555',
           'no_telefon' => '0123456789',
           'alamat' => 'No. 123 Taman ABC 70000 Kuala Lumpur',
-          'role' => 'staff'
+          'role' => 'STAFF'
         ]);
 
         # Data Demo User 3
@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
           'no_kp' => '901205-08-3334',
           'no_telefon' => '0123456789',
           'alamat' => 'No. 123 Taman ABC 70000 Kuala Lumpur',
-          'role' => 'student'
+          'role' => 'STUDENT'
         ]);
     }
 }

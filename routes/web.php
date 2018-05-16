@@ -18,7 +18,7 @@ Route::post('users/add', 'UsersController@store')->name('users.store');
 # Route untuk paparkan borang edit user
 Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
 # Route untuk terima data dari borang edit user dan update ke dalam table users
-Route::patch('users/{id}/kemaskini', 'UsersController@update')->name('users.update');
+Route::patch('users/{id}/edit', 'UsersController@update')->name('users.update');
 
 # Route senarai aduan
 Route::get('aduan', 'AduanController@index');

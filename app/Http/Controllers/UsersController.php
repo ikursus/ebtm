@@ -54,8 +54,9 @@ class UsersController extends Controller
       # Validation Laravel 5.5 ke atas
       $request->validate([
         'nama' => 'required|min:3',
-        'email' => 'required|email',
-        'no_kp' => 'required|regex:/^\d{6}-\d{2}-\d{4}$/'
+        'email' => 'required|email|unique:users,email',
+        'no_kp' => 'required|regex:/^\d{6}-\d{2}-\d{4}$/|unique:users,no_kp',
+        'password' => 'required|min:3'
       ]);
 
       # Dapatkan semua data dari borang
@@ -63,7 +64,7 @@ class UsersController extends Controller
       # Dapatkan nama dan emeel
       // $data = $request->only('nama', 'email');
       # Dapatkan nama dan emeel
-      $data = $request->except('_token');
+      $data = $request->except('_token', 'uid');
       # Simpan data ke dalam database
       DB::table('users')->insert($data);
       //
@@ -106,7 +107,28 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      # Validation borang
+      $request->validate([
+        'nama' => 'required|min:3',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'no_kp' => 'required|regex:/^\d{6}-\d{2}-\d{4}$/|unique:users,no_kp,' . $id
+      ]);
+
+      # Dapatkan data daripada borang
+      $data = $request->except('_token', '_method', 'uid', 'password');
+
+      # Semak jika wujud data untuk password? Jika ada, encrypt dan attach kepada array $data
+      if ( ! empty( $request->input('password') ) )
+      {
+        $data['password'] = bcrypt( $request->input('password') );
+      }
+
+      # Update data ke dalam database berdasarkan ID yang dibekalkan
+      DB::table('users')->where('id', '=', $id)->update($data);
+
+      # Bagi respon
+      return redirect()->route('users.index')->with('mesej-sukses', 'Rekod berjaya dikemaskini!');
+
     }
 
     /**
