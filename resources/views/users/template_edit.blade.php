@@ -10,7 +10,8 @@
 <div class="card-body">
 
 
-  <form method="POST" action="{{ route('login') }}">
+  <form method="POST" action="/users/{{ $user->id }}/edit">
+  <form method="POST" action="{{ route('users.update', ['id' => $user->id]) }}">
       @csrf
 
 

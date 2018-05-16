@@ -44,6 +44,8 @@
 
 {!! $rekod_users->links() !!}
 
+<p>Jumlah Users: {{ $rekod_users->total() }} pengguna.</p>
+
 </div>
 </div>
 </div>

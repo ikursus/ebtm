@@ -23,8 +23,8 @@ class UsersController extends Controller
       $rekod_users = DB::table('users')
       ->select('id', 'nama', 'email', 'no_telefon')
       ->orderBy('id', 'desc')
-      ->whereIn('role', ['admin', 'student'])
-      ->paginate(2);
+      //->whereIn('role', ['admin', 'student'])
+      ->paginate(3);
 
       return view('users/template_index', compact('page_title', 'rekod_users'));
     }
@@ -63,7 +63,7 @@ class UsersController extends Controller
       # Dapatkan nama dan emeel
       // $data = $request->only('nama', 'email');
       # Dapatkan nama dan emeel
-      $data = $request->except('_token', 'uid');
+      $data = $request->except('_token');
       # Simpan data ke dalam database
       DB::table('users')->insert($data);
       //
@@ -89,9 +89,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-      $page_title = 'Edit Rekod User - ' . $id;
-
-      return view('users/template_edit', compact('page_title') );
+      # Dapatkan data user berdasarkan ID
+      $user = DB::table('users')->where('id', '=', $id)->first();
+      # Tetapkan title halaman edit
+      $page_title = 'Edit Rekod User - ' . $user->nama;
+      # Bagi respon paparkan template edit user beserta passkan variable $page_title dan $user
+      return view('users/template_edit', compact('page_title', 'user') );
     }
 
     /**
