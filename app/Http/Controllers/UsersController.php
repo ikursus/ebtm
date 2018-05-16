@@ -139,6 +139,19 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+      # Dapatkan data user berdasarkan ID dan delete rekodnya
+      // DB::table('users')->where('id', '=', $id)->delete();
+      $user = DB::table('users')->where('id', '=', $id)->first();
+
+      # Sekiranya bukan ADMIN, baru delete rekod
+      if ( $user->role != 'ADMIN' )
+      {
+        DB::table('users')->where('id', '=', $id)->delete();
+        # Bagi respon kembali ke halaman senarai users
+        return redirect()->route('users.index')->with('mesej-sukses', 'Rekod berjaya dihapuskan!');
+      }
+
+      # Bagi respon kembali ke halaman senarai users
+      return redirect()->route('users.index')->with('mesej-error', 'Anda tidak boleh menghapuskan ADMIN!');
     }
 }

@@ -33,7 +33,44 @@
       <td>{{ $orang->no_telefon }}</td>
       <td>
         <a class="btn btn-sm btn-info" href="/users/{{ $orang->id }}/edit">Edit</a>
-        <button class="btn btn-sm btn-danger">Delete</button>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $orang->id }}">
+          Delete
+        </button>
+
+<form method="POST" action="{{ route('users.destroy', ['id' => $orang->id]) }}">
+  @csrf
+  <input type="hidden" name="_method" value="DELETE">
+  
+<!-- Modal -->
+<div class="modal fade" id="modal-delete-{{ $orang->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Pengesahan Delete</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+
+<p>Adakah anda bersetuju untuk menghapuskan rekod berikut:</p>
+<ul>
+  <li>ID: {{ $orang->id }}</li>
+  <li>Nama: {{ $orang->nama }}</li>
+</ul>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+<button type="submit" class="btn btn-danger">Sah Hapus</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+
       </td>
     </tr>
     @endforeach

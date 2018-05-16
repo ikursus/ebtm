@@ -19,6 +19,8 @@ Route::post('users/add', 'UsersController@store')->name('users.store');
 Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
 # Route untuk terima data dari borang edit user dan update ke dalam table users
 Route::patch('users/{id}/edit', 'UsersController@update')->name('users.update');
+# Route untuk delete user berdasarkan ID
+Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
 
 # Route senarai aduan
 Route::get('aduan', 'AduanController@index');
