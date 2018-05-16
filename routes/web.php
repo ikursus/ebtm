@@ -22,6 +22,19 @@ Route::patch('users/{id}/edit', 'UsersController@update')->name('users.update');
 # Route untuk delete user berdasarkan ID
 Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
 
+# Route senarai modul
+Route::get('modul', 'ModulController@index')->name('modul.index');
+# Route untuk paparkan borang tambah modul
+Route::get('modul/add', 'ModulController@create')->name('modul.create');
+# Route untuk terima data dari borang tambah modul dan simpan rekod modul ke table modul
+Route::post('modul/add', 'ModulController@store')->name('modul.store');
+# Route untuk paparkan borang edit modul
+Route::get('modul/{id}/edit', 'ModulController@edit')->name('modul.edit');
+# Route untuk terima data dari borang edit modul dan update ke dalam table modul
+Route::patch('modul/{id}/edit', 'ModulController@update')->name('modul.update');
+# Route untuk delete modul berdasarkan ID
+Route::delete('modul/{id}', 'ModulController@destroy')->name('modul.destroy');
+
 # Route senarai aduan
 Route::get('aduan', 'AduanController@index');
 # Route untuk tambah aduan

@@ -5,46 +5,42 @@
 <div class="row justify-content-center">
 <div class="col-md-12">
 <div class="card">
-<div class="card-header">{!! $page_title !!}</div>
+<div class="card-header">{!! $page_title or "" !!}</div>
 
 <div class="card-body">
 
 @include('layouts/alerts')
 
 <p>
-  <a class="btn btn-primary" href="/users/add">Tambah User</a>
+  <a class="btn btn-primary" href="{{ route('modul.create') }}">Tambah Modul</a>
 </p>
 
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
       <th>Nama</th>
-      <th>Email</th>
-      <th>Telefon</th>
       <th>Tindakan</th>
     </tr>
   </thead>
   <tbody>
 
-    @foreach ( $rekod_users as $orang )
+    @foreach ( $rekod_modul as $item )
     <tr>
-      <td>{{ $orang->nama }}</td>
-      <td>{{ $orang->email }}</td>
-      <td>{{ $orang->no_telefon }}</td>
+      <td>{{ $item->nama }}</td>
       <td>
-        <a class="btn btn-sm btn-info" href="/users/{{ $orang->id }}/edit">Edit</a>
+        <a class="btn btn-sm btn-info" href="{{ route('modul.edit', ['id' => $item->id]) }}">Edit</a>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $orang->id }}">
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">
   Delete
 </button>
 
-<form method="POST" action="{{ route('users.destroy', ['id' => $orang->id]) }}">
+<form method="POST" action="{{ route('modul.destroy', ['id' => $item->id]) }}">
   @csrf
   <input type="hidden" name="_method" value="DELETE">
 
 <!-- Modal -->
-<div class="modal fade" id="modal-delete-{{ $orang->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-delete-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header">
@@ -57,8 +53,8 @@
 
 <p>Adakah anda bersetuju untuk menghapuskan rekod berikut:</p>
 <ul>
-  <li>ID: {{ $orang->id }}</li>
-  <li>Nama: {{ $orang->nama }}</li>
+  <li>ID: {{ $item->id }}</li>
+  <li>Nama: {{ $item->nama }}</li>
 </ul>
 
 </div>
@@ -79,9 +75,9 @@
 
 </table>
 
-{!! $rekod_users->links() !!}
+{!! $rekod_modul->links() !!}
 
-<p>Jumlah Users: {{ $rekod_users->total() }} pengguna.</p>
+<p>Jumlah Modul: {{ $rekod_modul->total() }}.</p>
 
 </div>
 </div>

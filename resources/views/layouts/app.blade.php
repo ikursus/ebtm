@@ -45,6 +45,7 @@
                             <li><a class="nav-link" href="/dashboard">Dashboard</a></li>
                             <li><a class="nav-link" href="/users">Users</a></li>
                             <li><a class="nav-link" href="/aduan">Aduan</a></li>
+                            <li><a class="nav-link" href="/modul">Modul</a></li>
 
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
