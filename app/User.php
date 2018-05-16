@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    # Beritahu Class User ini, perlu berhubung dengan table berikut
+    // protected $table = 'users';
+
     use Notifiable;
 
     /**

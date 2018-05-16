@@ -11,7 +11,7 @@
 
   @include('layouts/alerts')
 
-  <form method="POST" action="/users/add">
+  <form method="POST" action="/aduan/add">
       @csrf
 
       <div class="form-group row">
@@ -19,9 +19,9 @@
 
           <div class="col-md-6">
               <select name="modul" class="form-control">
-                <option value="HR">HR</option>
-                <option value="PELAJAR">PELAJAR</option>
-                <option value="KEWANGAN">KEWANGAN</option>
+                @foreach( $modul as $item )
+                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                @endforeach
               </select>
 
               @if ($errors->has('modul'))

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -25,6 +26,10 @@ class UsersController extends Controller
       ->orderBy('id', 'desc')
       //->whereIn('role', ['admin', 'student'])
       ->paginate(3);
+      // $rekod_users = User::select('id', 'nama', 'email', 'no_telefon')
+      // ->orderBy('id', 'desc')
+      // //->whereIn('role', ['admin', 'student'])
+      // ->paginate(3);
 
       return view('users/template_index', compact('page_title', 'rekod_users'));
     }

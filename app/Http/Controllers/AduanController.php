@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+
+use App\Aduan;
+use App\Modul;
 
 class AduanController extends Controller
 {
@@ -15,10 +19,7 @@ class AduanController extends Controller
     {
       $page_title = 'Senarai Aduan';
 
-      $rekod_aduan = [
-        ['id' => 1, 'user_id' => 1, 'masalah' => 'Contoh Masalah 1', 'tarikh_report' => date('Y-m-d'), 'status' => 'Baru'],
-        ['id' => 2, 'user_id' => 2, 'masalah' => 'Contoh Masalah 2', 'tarikh_report' => date('Y-m-d'), 'status' => 'Baru']
-      ];
+      $rekod_aduan = Aduan::paginate(5);
 
       return view('aduan/template_index', compact('page_title', 'rekod_aduan'));
     }
@@ -31,8 +32,10 @@ class AduanController extends Controller
     public function create()
     {
       $page_title = 'Tambah Rekod Aduan';
-
-      return view('aduan/template_add', compact('page_title') );
+      # Dapatkan data dari table modul untuk select box modul
+      $modul = Modul::select('id', 'nama')->get();
+      # Beri respon paparkan template add aduan dan passkan variable $page_title dan $modul
+      return view('aduan/template_add', compact('page_title', 'modul') );
     }
 
     /**
@@ -43,7 +46,23 @@ class AduanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        # Validasi data
+        $request->validate([
+          'masalah' => 'required'
+        ]);
+
+        # Dapatkan SEMUA data daripada borang
+        $data = $request->all();
+        # Masukkan data tambahan
+        $data['user_id'] = Auth::user()->id;
+        $data['tarikh_report'] = date('Y-m-d');
+        $data['status'] = 'PENDING';
+
+        # Simpan data ke dalam table aduan
+        Aduan::create($data);
+
+        # Bagi respon redirect ke halaman senarai aduan
+        return redirect()->route('aduan.index')->with('mesej-sukses', 'Aduan berjaya dihantar');
     }
 
     /**

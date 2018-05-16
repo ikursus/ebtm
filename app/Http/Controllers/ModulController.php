@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Modul;
 
 class ModulController extends Controller
 {
@@ -17,6 +18,7 @@ class ModulController extends Controller
     {
         # Dapatkan rekod modul dari table modul
         $rekod_modul = DB::table('modul')->paginate(10);
+        // $rekod_modul = Modul::paginate(10);
         # Beri respon paparkan template senarai modul
         return view('modul.template_index', compact('rekod_modul'));
     }
@@ -74,6 +76,7 @@ class ModulController extends Controller
     public function edit($id)
     {
         # Dapatkan rekod modul berdasarkan ID
+        // $modul = DB::table('modul')->where('id', $id)->first();
         $modul = DB::table('modul')->where('id', $id)->first();
         # Paparkan borang template edit modul dan passkan variable $modul kepada template
         return view('modul.template_edit', compact('modul') );
