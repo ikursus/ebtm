@@ -39,6 +39,7 @@
 
         </ul>
       </li>
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-file-text-o"></i> <span>Aduan</span>
@@ -49,6 +50,20 @@
         <ul class="treeview-menu">
           <li><a href="{{ route('aduan.index') }}"><i class="fa fa-circle-o"></i> Senarai Aduan</a></li>
           <li><a href="{{ route('aduan.create') }}"><i class="fa fa-circle-o"></i> Tambah Aduan</a></li>
+
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-folder"></i> <span>Modul</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('modul.index') }}"><i class="fa fa-circle-o"></i> Senarai Modul</a></li>
+          <li><a href="{{ route('modul.create') }}"><i class="fa fa-circle-o"></i> Tambah Modul</a></li>
 
         </ul>
       </li>

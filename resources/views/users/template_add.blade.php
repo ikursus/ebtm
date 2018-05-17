@@ -1,4 +1,4 @@
-@extends('layouts/app')
+@extends('themes/adminlte/layouts/master')
 
 @section('content')
 <div class="container">
