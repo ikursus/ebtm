@@ -11,57 +11,11 @@
 
   @include('layouts/alerts')
 
-  <form method="POST" action="{{ route('aduan.update', ['id' => $aduan->id]) }}">
-      @csrf
-      @method('patch')
+  {!! Form::model($aduan, ['method' => 'patch', 'route' => ['aduan.update', $aduan->id]]) !!}
 
-      <div class="form-group row">
-          <label for="modul" class="col-sm-4 col-form-label text-md-right">MODUL</label>
+  @include('aduan/borang')
 
-          <div class="col-md-6">
-              <select name="modul" class="form-control">
-                @foreach( $modul as $item )
-                <option value="{{ $item->id }}" {{ $aduan->modul == $item->id ? 'selected=selected' : '' }}>{{ $item->nama }}</option>
-                @endforeach
-              </select>
-
-              @if ($errors->has('modul'))
-                  <span class="invalid-feedback">
-                      <strong>{{ $errors->first('modul') }}</strong>
-                  </span>
-              @endif
-          </div>
-      </div>
-
-      <div class="form-group row">
-          <label for="masalah" class="col-sm-4 col-form-label text-md-right">MASALAH</label>
-
-          <div class="col-md-6">
-              <textarea id="masalah" class="form-control{{ $errors->has('masalah') ? ' is-invalid' : '' }}" name="masalah" required autofocus>
-                {{ $aduan->masalah }}
-              </textarea>
-
-              @if ($errors->has('masalah'))
-                  <span class="invalid-feedback">
-                      <strong>{{ $errors->first('masalah') }}</strong>
-                  </span>
-              @endif
-          </div>
-      </div>
-
-
-
-      <div class="form-group row mb-0">
-          <div class="col-md-8 offset-md-4">
-
-              <button type="submit" class="btn btn-primary">
-                  Save
-              </button>
-
-          </div>
-      </div>
-  </form>
-
+  {!! Form::close() !!}
 
 </div>
 </div>

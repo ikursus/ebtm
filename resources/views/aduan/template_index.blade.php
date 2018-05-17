@@ -30,7 +30,11 @@
 
     @foreach ( $rekod_aduan as $item )
     <tr>
-      <td>{{ $item->tableModul->nama }}</td>
+      <td>
+        @if( count( $item->tableModul ) )
+        {{ $item->tableModul->nama }}
+        @endif
+      </td>
       <td>{{ $item->masalah }}</td>
       <td>{{ $item->tarikh_report }}</td>
       <td>{{ $item->status }}</td>
@@ -60,7 +64,9 @@
 
         <p>Adakah anda bersetuju untuk menghapuskan rekod berikut:</p>
         <ul>
+          @if ( count( $item->tableModul ) )
           <li>MODUL: {{ $item->tableModul->nama }}</li>
+          @endif
           <li>MASALAH: {{ $item->masalah }}</li>
         </ul>
 

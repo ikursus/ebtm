@@ -33,7 +33,7 @@ class AduanController extends Controller
     {
       $page_title = 'Tambah Rekod Aduan';
       # Dapatkan data dari table modul untuk select box modul
-      $modul = Modul::select('id', 'nama')->get();
+      $modul = Modul::pluck('nama', 'id');
       # Beri respon paparkan template add aduan dan passkan variable $page_title dan $modul
       return view('aduan/template_add', compact('page_title', 'modul') );
     }
@@ -48,7 +48,7 @@ class AduanController extends Controller
     {
         # Validasi data
         $request->validate([
-          'masalah' => 'required'
+          'masalah' => 'required|min:3'
         ]);
 
         # Dapatkan SEMUA data daripada borang
@@ -88,7 +88,7 @@ class AduanController extends Controller
       # Nota: Penggunaan find() hanya untuk carian ID
       $aduan = Aduan::find($id);
       # Dapatkan senarai modul
-      $modul = Modul::select('id', 'nama')->get();
+      $modul = Modul::pluck('nama','id');
       # Tetapkan tajuk halaman
       $page_title = 'Edit Rekod Aduan';
       # Paparkan borang template edit untuk aduan
