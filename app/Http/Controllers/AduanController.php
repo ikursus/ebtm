@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Calendar;
 
 use App\Aduan;
 use App\Modul;
@@ -23,6 +24,37 @@ class AduanController extends Controller
 
       return view('aduan/template_index', compact('page_title', 'rekod_aduan'));
     }
+
+    // Function planner untuk aduan
+    public function calendar()
+    {
+      $page_title = 'Planner';
+
+      # Dapatkan data aduan yang telah dibuat
+      $data = Aduan::select('tarikh_report', 'masalah')->get();
+
+      if ( count( $data ) )
+      {
+        foreach ( $data as $key => $value )
+        {
+          $events[] = Calendar::event(
+            $value->masalah,
+            true,
+            new \DateTime('2018-05-14'), //start time (you can also use Carbon instead of DateTime)
+            new \DateTime('2018-02-17'), //end time (you can also use Carbon instead of DateTime)
+            null,
+            [
+              'color' => '#800'
+            ]
+          );
+        }
+
+        $calendar = Calendar::addEvents($events);
+      }
+
+      return view('themes/'.env('APP_THEME'). '/aduan/template_calendar', compact('page_title', 'calendar'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

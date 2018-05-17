@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('aduan/add', 'AduanController@create')->name('aduan.create');
   # Route untuk terima data dari borang tambah aduan
   Route::post('aduan/add', 'AduanController@store')->name('aduan.store');
+  # Paparkan kalendar untuk aduan yang dikirim
+  Route::get('aduan/calendar', 'AduanController@calendar')->name('aduan.calendar');
   # Route untuk papar borang edit aduan
   Route::get('aduan/{id}/edit', 'AduanController@edit')->name('aduan.edit');
   # Route untuk simpan kemaskini rekod aduan
