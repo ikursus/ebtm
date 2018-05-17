@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('modul/add', 'ModulController@create')->name('modul.create');
   # Route untuk terima data dari borang tambah modul dan simpan rekod modul ke table modul
   Route::post('modul/add', 'ModulController@store')->name('modul.store');
+  # Route untuk paparkan rekod aduan bagi setiap modul
+  Route::get('modul/{id}/aduan', 'ModulController@aduan')->name('modul.aduan');
   # Route untuk paparkan borang edit modul
   Route::get('modul/{id}/edit', 'ModulController@edit')->name('modul.edit');
   # Route untuk terima data dari borang edit modul dan update ke dalam table modul

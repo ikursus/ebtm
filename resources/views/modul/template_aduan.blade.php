@@ -5,17 +5,17 @@
 <div class="row justify-content-center">
 <div class="col-md-12">
 <div class="card">
-<div class="card-header">{!! $page_title !!}</div>
+<div class="card-header">{!! $page_title or "" !!}</div>
 
 <div class="card-body">
 
 @include('layouts/alerts')
 
 <p>
-  <a class="btn btn-primary" href="/aduan/add">Tambah Aduan</a>
+  Berikut adalah senarai aduan bagi modul {{ $modul->nama }}.
 </p>
 
-@if ( count( $rekod_aduan ) )
+@if ( count( $modul->tableAduan ) )
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
@@ -28,9 +28,9 @@
   </thead>
   <tbody>
 
-    @foreach ( $rekod_aduan as $item )
+    @foreach ( $modul->tableAduan as $item )
     <tr>
-      <td>{{ $item->tableModul->nama }}</td>
+      <td>{{ $modul->nama }}</td>
       <td>{{ $item->masalah }}</td>
       <td>{{ $item->tarikh_report }}</td>
       <td>{{ $item->status }}</td>

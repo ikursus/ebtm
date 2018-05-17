@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Modul;
+use App\Aduan;
 
 class ModulController extends Controller
 {
@@ -62,9 +63,19 @@ class ModulController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function aduan($id)
     {
-        //
+        # Dapatkan rekod modul berdasarkan ID
+        $modul = Modul::find($id);
+        # Kaedah 1
+        # Cari rekod aduan berdasarkan ID modul
+        // $rekod_aduan = Aduan::where('modul', '=', $id)->paginate(10);
+
+        # Bagi respon paparkan template senaria aduan bagi modul ID yang terlibat
+        // return view('modul/template_aduan', compact('modul', 'rekod_aduan'));
+        return view('modul/template_aduan', compact('modul'));
+
+
     }
 
     /**

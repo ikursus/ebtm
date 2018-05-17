@@ -128,6 +128,11 @@ class AduanController extends Controller
      */
     public function destroy($id)
     {
-        //
+      # Dapatkan rekod aduan yang ingin dikemaskini dan hapuskan dari table aduan
+      $aduan = Aduan::find($id);
+      $aduan->delete();
+
+      # Bagi respon redirect ke halaman senarai aduan
+      return redirect()->route('aduan.index')->with('mesej-sukses', 'Aduan berjaya dihapuskan');
     }
 }

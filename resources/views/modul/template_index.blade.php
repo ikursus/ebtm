@@ -28,6 +28,7 @@
     <tr>
       <td>{{ $item->nama }}</td>
       <td>
+        <a class="btn btn-sm btn-primary" href="{{ route('modul.aduan', ['id' => $item->id]) }}">Lihat Aduan</a>
         <a class="btn btn-sm btn-info" href="{{ route('modul.edit', ['id' => $item->id]) }}">Edit</a>
 
 <!-- Button trigger modal -->
