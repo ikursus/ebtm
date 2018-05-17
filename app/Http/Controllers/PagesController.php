@@ -9,7 +9,7 @@ class PagesController extends Controller
 
     public function dashboard()
     {
-      $page_title = '<h1>Halaman Dashboard</h1>';
+      $page_title = 'Dashboard';
 
       $content = [
         ['nama' => 'Ali', 'emel' => 'Ali@gmail.com', 'telefon' => '0123456789'],
@@ -17,7 +17,7 @@ class PagesController extends Controller
         ['nama' => 'Ahmad', 'emel' => 'Ahmad@gmail.com', 'telefon' => '0123456989']
       ];
 
-      return view('template_dashboard', compact('page_title', 'content'));
+      return view('themes.'.env('APP_THEME'). '.layouts.template_dashboard', compact('page_title', 'content'));
     }
 
     /**
