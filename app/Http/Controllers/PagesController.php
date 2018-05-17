@@ -25,9 +25,9 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function homepage()
     {
-        //
+        return view('themes/' . env('APP_THEME') . '/guest/homepage');
     }
 
     /**

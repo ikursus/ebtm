@@ -1,8 +1,6 @@
 <?php
 # Homepage route
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@homepage')->name('pages.homepage');
 
 Route::redirect('/home', '/dashboard');
 
@@ -13,7 +11,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
 
   # Route dashboard user
-  Route::get('dashboard', 'PagesController@dashboard');
+  Route::get('dashboard', 'PagesController@dashboard')->name('pages.dashboard');
 
   # Route senarai users
   Route::get('users', 'UsersController@index')->name('users.index');
