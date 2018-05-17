@@ -32,6 +32,7 @@
       <td>{{ $orang->email }}</td>
       <td>{{ $orang->no_telefon }}</td>
       <td>
+        <a class="btn btn-sm btn-primary" href="{{ route('users.aduan', ['id' => $orang->id]) }}">Lihat Aduan</a>
         <a class="btn btn-sm btn-info" href="/users/{{ $orang->id }}/edit">Edit</a>
 
 <!-- Button trigger modal -->

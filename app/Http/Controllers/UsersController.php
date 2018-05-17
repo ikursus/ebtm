@@ -82,9 +82,20 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function aduan($id)
     {
+        # Dapatkan maklumat user
+        //$user = User::find($id);
+        $user = DB::table('users')->where('id', '=', $id)->first();
 
+        # Dapatkan maklumat aduan user
+        $rekod_aduan = DB::table('users') // atau guna model User::join()
+        ->join('aduan', 'users.id', '=', 'aduan.user_id')
+        ->where('users.id', '=', $id)
+        ->select('users.*', 'aduan.id as aduan_id', 'aduan.masalah', 'aduan.status', 'aduan.tarikh_report')
+        ->paginate(10);
+
+        return view('users/template_aduan', compact('page_title', 'user', 'rekod_aduan') );
     }
 
     /**

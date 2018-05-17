@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('users/add', 'UsersController@create')->name('users.create');
   # Route untuk terima data dari borang tambah user dan simpan rekod user ke table users
   Route::post('users/add', 'UsersController@store')->name('users.store');
+  # Route untuk paparkan aduan user
+  Route::get('users/{id}/aduan', 'UsersController@aduan')->name('users.aduan');
   # Route untuk paparkan borang edit user
   Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
   # Route untuk terima data dari borang edit user dan update ke dalam table users

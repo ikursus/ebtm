@@ -12,10 +12,10 @@
 @include('layouts/alerts')
 
 <p>
-  Berikut adalah senarai aduan bagi modul {{ $modul->nama }}.
+  Berikut adalah senarai aduan bagi user {{ $user->nama }}.
 </p>
 
-@if ( count( $modul->tableAduan ) )
+@if ( count( $rekod_aduan ) )
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
@@ -28,9 +28,9 @@
   </thead>
   <tbody>
 
-    @foreach ( $modul->tableAduan as $item )
+    @foreach ( $rekod_aduan as $item )
     <tr>
-      <td>{{ $modul->nama }}</td>
+      <td>{{ $item->nama }}</td>
       <td>{{ $item->masalah }}</td>
       <td>{{ $item->tarikh_report }}</td>
       <td>{{ $item->status }}</td>
@@ -60,7 +60,7 @@
 
         <p>Adakah anda bersetuju untuk menghapuskan rekod berikut:</p>
         <ul>
-          <li>MODUL: {{ $modul->nama }}</li>
+          <li>MODUL: {{ $item->nama }}</li>
           <li>MASALAH: {{ $item->masalah }}</li>
         </ul>
 
