@@ -50,6 +50,7 @@
         <ul class="treeview-menu">
           <li><a href="{{ route('aduan.index') }}"><i class="fa fa-circle-o"></i> Senarai Aduan</a></li>
           <li><a href="{{ route('aduan.create') }}"><i class="fa fa-circle-o"></i> Tambah Aduan</a></li>
+          <li><a href="{{ route('aduan.calendar') }}"><i class="fa fa-circle-o"></i> Planner / Calendar</a></li>
 
         </ul>
       </li>

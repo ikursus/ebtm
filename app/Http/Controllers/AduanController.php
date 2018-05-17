@@ -40,11 +40,11 @@ class AduanController extends Controller
           $events[] = Calendar::event(
             $value->masalah,
             true,
-            new \DateTime('2018-05-14'), //start time (you can also use Carbon instead of DateTime)
-            new \DateTime('2018-02-17'), //end time (you can also use Carbon instead of DateTime)
+            new \DateTime($value->tarikh_report), //start time (you can also use Carbon instead of DateTime)
+            new \DateTime($value->tarikh_report), //end time (you can also use Carbon instead of DateTime)
             null,
             [
-              'color' => '#800'
+              'color' => 'rgba('.rand(0,255).', '.rand(0,255).', 0.73)'
             ]
           );
         }
