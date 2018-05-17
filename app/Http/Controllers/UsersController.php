@@ -43,7 +43,7 @@ class UsersController extends Controller
     {
         $page_title = 'Tambah Rekod User';
 
-        return view('users/template_add', compact('page_title') );
+        return view('themes/'.env('APP_THEME').'/users/template_add', compact('page_title') );
     }
 
     /**
