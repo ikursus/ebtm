@@ -84,9 +84,15 @@ class AduanController extends Controller
      */
     public function edit($id)
     {
-      $page_title = 'Edit Rekod Aduan - ' . $id;
-
-      return view('aduan/template_edit', compact('page_title') );
+      # Dapatkan rekod aduan berdasarkan ID
+      # Nota: Penggunaan find() hanya untuk carian ID
+      $aduan = Aduan::find($id);
+      # Dapatkan senarai modul
+      $modul = Modul::select('id', 'nama')->get();
+      # Tetapkan tajuk halaman
+      $page_title = 'Edit Rekod Aduan';
+      # Paparkan borang template edit untuk aduan
+      return view('aduan/template_edit', compact('page_title', 'aduan', 'modul') );
     }
 
     /**
@@ -98,7 +104,20 @@ class AduanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      # Validasi data
+      $request->validate([
+        'masalah' => 'required'
+      ]);
+
+      # Dapatkan SEMUA data daripada borang
+      $data = $request->all();
+
+      # Dapatkan rekod aduan yang ingin dikemaskini dan Simpan data kemaskini ke dalam table aduan
+      $aduan = Aduan::find($id);
+      $aduan->update($data);
+
+      # Bagi respon redirect ke halaman senarai aduan
+      return redirect()->route('aduan.index')->with('mesej-sukses', 'Aduan berjaya dikemaskini');
     }
 
     /**
