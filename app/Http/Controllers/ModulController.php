@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use DataTables;
+
 use App\Modul;
 use App\Aduan;
 
@@ -17,11 +19,71 @@ class ModulController extends Controller
      */
     public function index()
     {
+        $page_title = 'Senarai Modul';
         # Dapatkan rekod modul dari table modul
-        $rekod_modul = DB::table('modul')->paginate(10);
+        # $rekod_modul = DB::table('modul')->paginate(10);
         // $rekod_modul = Modul::paginate(10);
         # Beri respon paparkan template senarai modul
-        return view('modul.template_index', compact('rekod_modul'));
+        return view('modul.template_index', compact('page_title'));
+    }
+    /**
+     * Datatables.
+     */
+    public function datatables()
+    {
+        # Dapatkan rekod dari table modul
+        $query = Modul::select('id', 'nama');
+        # Bagi respon ke datatables
+        return DataTables::of($query)
+        ->addColumn('tindakan', function ($item) {
+
+          return '
+
+          <a class="btn btn-sm btn-primary" href="'. route('modul.aduan', ['id' => $item->id]) .'">Lihat Aduan</a>
+          <a class="btn btn-sm btn-info" href="'. route('modul.edit', ['id' => $item->id]) .'">Edit</a>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-'. $item->id .'">
+  Delete
+</button>
+
+<form method="POST" action="'. route('modul.destroy', ['id' => $item->id]) .'">
+  ' . csrf_field() . '
+  <input type="hidden" name="_method" value="DELETE">
+
+<!-- Modal -->
+<div class="modal fade" id="modal-delete-'. $item->id .'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Pengesahan Delete</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+
+<p>Adakah anda bersetuju untuk menghapuskan rekod berikut:</p>
+<ul>
+  <li>ID: '. $item->id .'</li>
+  <li>Nama: ' . $item->nama .'</li>
+</ul>
+
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+<button type="submit" class="btn btn-danger">Sah Hapus</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+
+          ';
+
+        })
+        ->rawColumns(['tindakan'])
+        ->make(true);
     }
 
     /**

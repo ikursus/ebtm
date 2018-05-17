@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function() {
 
   # Route senarai modul
   Route::get('modul', 'ModulController@index')->name('modul.index');
+  # Route untuk datatables
+  Route::get('modul/datatables', 'ModulController@datatables')->name('modul.datatables');
   # Route untuk paparkan borang tambah modul
   Route::get('modul/add', 'ModulController@create')->name('modul.create');
   # Route untuk terima data dari borang tambah modul dan simpan rekod modul ke table modul
